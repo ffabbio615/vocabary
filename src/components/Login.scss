@@ -1,158 +1,94 @@
+@use '../App' as *;
 
-@mixin input-text(){
-    width: 60%;
-    height: 65px;
-    border: none;
-    outline: none;
-    background-color: rgba(255, 255, 255, 0);
-    border-bottom: 1px solid white;
-    display: block;
-    color: white;
-    padding-left: 42px;
-    padding-top: 10px;
-    font-size: 20px;
+@media screen and (min-width: 350px) and (max-width: 900px){
+    .login-container{
+        display: none;
+    }
 }
 
-.login-container{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    .login-form{
-        width: 625px;
-        height: 400px;
-        backdrop-filter: blur(3px);
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4 );
-        background-color: rgba(255, 255, 255, 0.05 );
-        border-radius: 50px;
-        border-style: solid;
-        border-width: 2px;
-        border-color: rgba(180, 180, 180, 0.4);
-        padding: 0px;
-        // mix-blend-mode:hard-light;
-        // mix-blend-mode:overlay;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        flex-wrap: wrap;
+@media screen and (min-width: 900px){
 
+    .login-container{
+        @include horizontal-align(100%, 100%, 0px);
 
-        .vocabary-logo{
-            height: 190px;
-            width: auto;
+        .loader{
+            @include horizontal-align(100%,100%,0px);
+            background: linear-gradient(135deg, rgba(42,26,94,1) 0%, rgba(106,90,205,1) 100%);
             position: absolute;
-            top: -115px;
-            left: -105px;
-        }
+            z-index: 5;
 
-        .user-text{
-            @include input-text();
-            background-image: url("../../public/img/emailIcon.svg");
-            background-size: 22px;
-            background-position: calc(10px) calc(50% + 4px);
-            background-repeat: no-repeat;
-        }
-
-        .password-text{
-            @include input-text();
-            margin-top: 25px;
-            background-image: url("../../public/img/passwordIcon.svg");
-            background-size: 22px;
-            background-position: calc(10px) calc(50% + 2px);
-            background-repeat: no-repeat;
-        }
-
-        input::placeholder{
-            color: white;
-        }
-
-        .memorization-container{
-            width: 60%;
-            display: flex;
-            margin-top: 30px;
-            justify-content: space-between;
-            padding: 0 8px;
-
-            input[type="checkbox"]{
-                appearance: none;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                width: 20px;
-                height: 20px;
-                margin-right: 8px;
-                backdrop-filter: blur(3px);
-                background-color: rgba(255, 255, 255, 0.5);
-                border-radius: 5px;
-                border-style: solid;
-                border-width: 2px;
-                border-color: rgba(180, 180, 180, 0.4);
-                padding: 0px;
-                mix-blend-mode:hard-light;
-                cursor: pointer;
+            img{
+                height: 20%;
+                width: auto;
+                opacity: 0.85;
+                filter: drop-shadow(0 0 10px rgba(0,0,0,0.4));
+                animation: animation-logo 1s ease-in-out infinite alternate;
             }
 
-            .remember-me{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                input[type="checkbox"]::after {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    content: "✔";
-                    font-size: 20px;
-                    color: white;
-                    display: none;
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -55%); /* Centraliza o ícone */
-                }
-                
-                input[type="checkbox"]:checked::after {
-                    display: block;
-                }
-            }
-
-            a{
-                text-decoration: none;
-                color: white;
+            @keyframes animation-logo {
+                0% { transform: rotate(30deg); }
+                100% { transform: rotate(-20deg); }
             }
         }
-
-        button{
-            width: 260px;
-            height: 65px;
-            margin-top: 30px;
-            backdrop-filter: blur(3px);
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 5px;
-            border: none;
-            mix-blend-mode:hard-light;
-            color: rgba(255,255,255,0.8);
-            font-size: 20px;
-            mix-blend-mode:overlay;
-            cursor: pointer;
-        }
-
-        button:active{
-            border: 2px solid rgba(200,200,200,0.5);
-            box-shadow: inset 0 0 10px rgba(100,100,100,0.8);
+    
+        .login-form{
+            @include opacity5-element();
+            @include vertical-align(625px, 400px, 50px);
             
-            color: white;
-        }
+            .vocabary-logo{
+                height: 190px;
+                width: auto;
+                position: absolute;
+                top: -115px;
+                left: -105px;
+            }
+            
+            .user-text{
+                @include image-text-inputs("../../public/img/emailIcon.svg", calc(10px), calc(50% + 4px));    
+            }
+            
+            .password-text{
+                @include image-text-inputs("../../public/img/passwordIcon.svg", calc(10px), calc(50% + 2px));
+            }
+            
+            .remember-password-container{
+                width: 60%;
+                display: flex;
+                margin-top: 30px;
+                justify-content: space-between;
+                padding: 0 8px;
 
-        input[type="button"]{
-            margin-top: 15px;
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            text-decoration: underline;
+                .remember-me{
+                    @include horizontal-align(auto, auto, 0px);
+                }
+
+                .forgot--password{
+                    cursor: pointer;
+                }
+            }
+            
+            .login-button{
+                @include opacity20-element();
+                @include medium-button();
+            }
+            
+            .login-button:hover{
+                @include opacity50-element();
+            }
+            
+            .login-button:active{
+                @include button-active();
+            }
+            
+            .sign-up-button{
+                margin-top: 15px;
+                background: none;
+                border: none;
+                color: white;
+                cursor: pointer;
+                text-decoration: underline;
+            }
         }
     }
 }
+

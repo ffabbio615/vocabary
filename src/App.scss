@@ -4,6 +4,110 @@
     box-sizing: border-box;
 }
 
+@mixin image-text-inputs($background, $pos-x, $pos-y){
+    width: 60%;
+    height: 65px;
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0);
+    border-bottom: 1px solid white;
+    display: block;
+    color: white;
+    padding-left: 42px;
+    padding-top: 10px;
+    font-size: 20px;
+    background-image: url($background);
+    background-size: 22px;
+    background-position: $pos-x $pos-y;
+    background-repeat: no-repeat;
+}
+
+@mixin text-inputs(){
+    width: 60%;
+    height: 65px;
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0);
+    border-bottom: 1px solid white;
+    display: block;
+    color: white;
+    padding-left: 42px;
+    padding-top: 10px;
+    font-size: 20px;
+}
+
+input::placeholder{
+    color: white;
+}
+
+@mixin horizontal-align($width, $height, $radius){
+    width: $width;
+    height: $height;
+    border-radius: $radius;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin vertical-align($width, $height, $radius){
+    width: $width;
+    height: $height;
+    border-radius: $radius;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+@mixin opacity5-element(){
+    backdrop-filter: blur(3px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4 );
+    background-color: rgba(255, 255, 255, 0.05 );
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgba(180, 180, 180, 0.4);
+}
+
+@mixin opacity20-element(){
+    backdrop-filter: blur(3px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1 );
+    background-color: rgba(255, 255, 255, 0.2);
+    border-width: 1px;
+    border-color: rgba(180, 180, 180, 0.2);
+}
+
+@mixin opacity30-element(){
+    backdrop-filter: blur(3px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3 );
+    background-color: rgba(255, 255, 255, 0.3);
+    border-width: 1px;
+    border-color: rgba(180, 180, 180, 0.2);
+}
+
+@mixin opacity50-element(){
+    backdrop-filter: blur(0px);
+    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+}
+
+@mixin medium-button(){
+    border-radius: 5px;
+    color: rgba(255,255,255,0.8);
+    width: 260px;
+    height: 65px;
+    margin-top: 30px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+@mixin button-active(){
+    border: 2px solid rgba(200,200,200,0.5);
+    box-shadow: inset 0 0 10px rgba(100,100,100,0.8);
+}
+
 html, body, #root {
     width: 100%;
     height: 100vh;
@@ -12,6 +116,39 @@ html, body, #root {
 
 body{
     background: linear-gradient(135deg, rgba(42,26,94,1) 0%, rgba(106,90,205,1) 100%);
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+input[type="checkbox"]{
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    @include opacity50-element();
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="checkbox"]::after {
+    @include horizontal-align(auto, auto, 0);
+    content: "✔";
+    font-size: 20px;
+    color: white;
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%); /* Centraliza o ícone */
+}
+
+input[type="checkbox"]:checked::after {
+    display: block;
 }
 
 .foreground{
@@ -24,3 +161,9 @@ body{
     position: fixed;
     z-index: -1;
 }
+
+// mix-blend-mode:hard-light;
+// mix-blend-mode:overlay;
+
+
+//Elementos de base - 5% | Botões - 20-50% | Cards e Categories - 30% | Radio, Checks e elementos com alto destaque - 50%

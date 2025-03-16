@@ -1,0 +1,18 @@
+@use '../App' as *;
+
+.hello-panel-container{
+    @include horizontal-align(100%,100%,0);
+
+    .sign-out{
+        position: absolute;
+        right: 25px;
+        top:25px;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    
+    .hello-panel{
+        @include horizontal-align(80%,80%,50px);
+        @include opacity5-element();
+    }
+}
